@@ -17,6 +17,9 @@ def video_consumer():
         # auto_offset_reset=get_data()['kafka']['consumer']['auto-offset-reset']
     )
 
+    mongodb_instance = MongoConnection().get_instance()
+    collection = mongodb_instance['video']
+
     consumer.subscribe(topics=[get_data()['kafka']['topic']])
     for message in consumer:
         received_json_str = json.dumps(message.value)
@@ -24,8 +27,6 @@ def video_consumer():
         video_data: VideoData = namedtuple("VideoData", received_json.keys())(*received_json.values())
         # video_data = VideoData.from_json(received_json)
         # json_str = json.dumps(video_data.__dict__)
-        mongodb_instance = MongoConnection().get_instance()
-        collection = mongodb_instance['video']
         collection.insert_one(received_json)
 
         print(f'receiving video chunk: {video_data.chunk_index} from: {video_data.element_alias}')

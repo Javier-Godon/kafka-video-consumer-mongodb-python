@@ -1,26 +1,25 @@
-import dataclasses
 import json
 from collections import namedtuple
 
 from kafka import KafkaConsumer
 
-from configuration.configuration import get_data
-from configuration.database_connection import MongoConnection
-from src.consumer.video_data import VideoData
+from app.configuration.configuration import get_data
+from app.configuration.database_connection import MongoConnection
+from app.file_by_chunks_consumer.domain.video_data import VideoData
 
 
 def video_consumer():
     consumer = KafkaConsumer(
-        bootstrap_servers=get_data()['kafka']['consumer']['bootstrap-servers'],
+        bootstrap_servers=get_data()['kafka']['file_by_chunks_consumer']['bootstrap-servers'],
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
         # group_id='videoProcessor',
-        # auto_offset_reset=get_data()['kafka']['consumer']['auto-offset-reset']
+        # auto_offset_reset=get_data()['kafka']['file_by_chunks_consumer']['auto-offset-reset']
     )
 
     mongodb_instance = MongoConnection().get_instance()
     collection = mongodb_instance['video']
 
-    consumer.subscribe(topics=[get_data()['kafka']['topic']])
+    consumer.subscribe(topics=[get_data()['kafka']['topics']['processed']])
     for message in consumer:
         received_json_str = json.dumps(message.value)
         received_json = json.loads(received_json_str)

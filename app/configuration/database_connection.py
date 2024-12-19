@@ -4,7 +4,7 @@ from typing import Any, Mapping
 from pymongo import MongoClient
 from pymongo.database import Database
 
-from configuration.configuration import get_data
+from app.configuration.configuration import get_data
 
 
 class MongoConnectionMeta(type):

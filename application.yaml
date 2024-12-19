@@ -1,7 +1,9 @@
 server:
   port: 8000
 kafka:
-  topic: processed-video
+  topics:
+    processed: processed-video
+    streaming: streaming-video
   consumer:
     bootstrap-servers: 10.152.183.90:9094
     key-serializer: serializer

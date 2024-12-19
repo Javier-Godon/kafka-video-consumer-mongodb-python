@@ -1,8 +1,14 @@
 pyyaml==6.0.1
 uvicorn==0.23.2
-pymongo==4.6.0
+pymongo==4.10.1
 pydantic==2.4.2
 pandas==2.1.2
 kafka-python==2.0.2
 confluent-kafka==2.3.0
 dataclasses-json==0.6.2
+#dagger_python
+pip~=24.3.1
+dagger-io~=0.15.1
+anyio~=4.3.0
+requests~=2.32.3
+kcl_lib==0.10.8

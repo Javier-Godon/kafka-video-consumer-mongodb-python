@@ -1,0 +1,48 @@
+name: Run Dagger Pipeline
+
+on:
+  workflow_dispatch: # Manually triggered workflow
+  repository_dispatch:
+    types:
+      - dagger-pipeline-trigger
+
+jobs:
+  run-dagger-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Environment Variables
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+          USERNAME: ${{ secrets.USERNAME }}
+        run: |
+          # Export environment variables so Dagger can access them
+          echo "CR_PAT=${CR_PAT}" >> $GITHUB_ENV
+          echo "USERNAME=${USERNAME}" >> $GITHUB_ENV
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12" # Use the Python version required by your pipeline
+
+      # Step 3: Set up and activate virtual environment
+      - name: Set up virtual environment
+        run: |
+          python -m venv dagger_python/venv
+          source dagger_python/venv/bin/activate
+
+      # Step 4: Install Python dependencies
+      - name: Install dependencies
+        run: |
+          source dagger_python/venv/bin/activate
+          pip install -r dagger_python/requirements.txt
+
+      # Step 5: Execute Dagger pipeline
+      - name: Run Dagger pipeline
+        run: |
+          source dagger_python/venv/bin/activate
+          python dagger_python/main.py

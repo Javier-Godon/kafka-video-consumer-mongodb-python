@@ -50,7 +50,7 @@ async def main():
 
         # Publish image to GHCR
         short_sha = latest_commit[:7]  # Shorten commit hash for tagging
-        timestamp = datetime.now().strftime("%Y%m%dT%H%M")
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H-%M")
         image_tag = f"{short_sha}-{timestamp}"
         image_address = f"ghcr.io/{username.lower()}/kafka-video-consumer-mongodb-python:{image_tag}"
 

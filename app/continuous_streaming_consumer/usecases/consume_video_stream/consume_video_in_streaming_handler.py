@@ -5,7 +5,7 @@ from app.configuration.configuration import get_data
 
 def get_video_stream():
     consumer = KafkaConsumer(
-        bootstrap_servers=get_data()['kafka']['file_by_chunks_consumer']['bootstrap-servers']
+        bootstrap_servers=get_data()['kafka']['consumer']['bootstrap-servers']
         # group_id='videoProcessor',
         # auto_offset_reset=get_data()['kafka']['file_by_chunks_consumer']['auto-offset-reset']
     )

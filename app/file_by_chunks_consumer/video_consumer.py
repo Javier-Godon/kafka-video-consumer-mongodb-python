@@ -10,7 +10,7 @@ from app.file_by_chunks_consumer.domain.video_data import VideoData
 
 def video_consumer():
     consumer = KafkaConsumer(
-        bootstrap_servers=get_data()['kafka']['file_by_chunks_consumer']['bootstrap-servers'],
+        bootstrap_servers=get_data()['kafka']['consumer']['bootstrap-servers'],
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
         # group_id='videoProcessor',
         # auto_offset_reset=get_data()['kafka']['file_by_chunks_consumer']['auto-offset-reset']

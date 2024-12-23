@@ -19,4 +19,7 @@ COPY ./ /code/
 EXPOSE 8002
 
 # Run app.py when the container launches
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+
+# Start kafka consumer
+CMD ["python", "app/file_by_chunks_consumer/usecases/__main__.py"]

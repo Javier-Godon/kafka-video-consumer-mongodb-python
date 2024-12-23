@@ -22,4 +22,6 @@ EXPOSE 8002
 #CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
 
 # Start kafka consumer
-CMD ["python", "app/file_by_chunks_consumer/usecases/__main__.py"]
+#-m Flag: The python -m flag allows Python to treat app.file_by_chunks_consumer.__main__ as a module,
+# ensuring that imports resolve correctly.
+CMD ["python", "-m", "app.file_by_chunks_consumer.__main__"]

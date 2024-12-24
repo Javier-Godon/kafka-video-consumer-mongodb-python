@@ -5,7 +5,7 @@ kafka:
     processed: processed-video
     streaming: streaming-video
   consumer:
-    bootstrap-servers: localhost:31248
+    bootstrap-servers: localhost:30290
     key-serializer: serializer
     value-serializer: serializer
     acks: all

@@ -9,6 +9,8 @@ from app.file_by_chunks_consumer.domain.video_data import VideoData
 
 
 def video_consumer():
+    config = get_data()
+    print("Loaded configuration:", config)
     consumer = KafkaConsumer(
         bootstrap_servers=get_data()['kafka']['consumer']['bootstrap-servers'],
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
